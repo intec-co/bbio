@@ -6,16 +6,24 @@
 
 namespace ports
 {
-lass GpioWrap : public node::ObjectWrap
+class GpioWrap : public node::ObjectWrap
 {
-  private:
-    explicit GpioWrap(double value = 0);
-    static v8::Persistent<v8::Function> constructor;
-    static void setValue(const v8::FunctionCallbackInfo<v8::Value> &args);
+public:
+  static void Init(v8::Isolate *isolate);
+  static void NewInstance(const v8::FunctionCallbackInfo<v8::Value> &args);
+  inline double value() const { return value_; }
 
-  public:
-    static void Init(v8::Local<v8::Object> exports);
-    static void NewInstance(const v8::FunctionCallbackInfo<v8::Value> &args);
+private:
+  explicit GpioWrap(double value = 0);
+  ~GpioWrap();
+
+  static void New(const v8::FunctionCallbackInfo<v8::Value> &args);
+  static void configure(const v8::FunctionCallbackInfo<v8::Value> &args);
+  static void write(const v8::FunctionCallbackInfo<v8::Value> &args);
+  static void read(const v8::FunctionCallbackInfo<v8::Value> &args);
+  static void interrupt(const v8::FunctionCallbackInfo<v8::Value> &args);
+  static v8::Persistent<v8::Function> constructor;
+  double value_;
 };
 }
 #endif /* GPIO_WRAP_H_ */

@@ -1,7 +1,7 @@
 const ports = require('./build/Release/ports');
 
-var gpio = new ports.gpio(69);
-console.log(gpio.setValue(true));
-setTimeout(function () {
-    console.log(gpio.setValue(false));
-}, 500);
+var gpio = ports.gpio(69);
+var spi = ports.spi(1);
+
+console.log(gpio.configure());
+console.log(spi.configure());

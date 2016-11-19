@@ -1,4 +1,4 @@
- /*
+/*
  *gpio.h
  *
  * Modifications by Carlos Vargas, Universidad Nacional de Colombia
@@ -7,7 +7,6 @@
  * Copyright (c) 2011, RidgeRun
  * All rights reserved.
  */
-
 
 #ifndef GPIO_H_
 #define GPIO_H_
@@ -43,7 +42,7 @@ enum PIN_EDGE
     BOTH = 3
 };
 
-class gpio : public node::ObjectWrap
+class gpio
 {
   private:
     unsigned int pin;
@@ -67,7 +66,7 @@ class gpio : public node::ObjectWrap
     void close_io();
 
   public:
-    gpio();
+    gpio(unsigned int value);
     virtual ~gpio();
 };
 #endif /* SIMPLEGPIO_H_ */
