@@ -40,6 +40,7 @@ void GpioWrap::Init(v8::Isolate *isolate)
     NODE_SET_PROTOTYPE_METHOD(tpl, "configure", configure);
     NODE_SET_PROTOTYPE_METHOD(tpl, "write", write);
     NODE_SET_PROTOTYPE_METHOD(tpl, "read", read);
+    NODE_SET_PROTOTYPE_METHOD(tpl, "interrupt", interrupt);
 
     constructor.Reset(isolate, tpl->GetFunction());
 }
@@ -112,9 +113,15 @@ void GpioWrap::read(const v8::FunctionCallbackInfo<v8::Value> &args)
 void GpioWrap::interrupt(const v8::FunctionCallbackInfo<v8::Value> &args)
 {
     Isolate *isolate = args.GetIsolate();
-
     GpioWrap *obj = ObjectWrap::Unwrap<GpioWrap>(args.Holder());
-
     args.GetReturnValue().Set(Number::New(isolate, obj->value_));
+
+    for (int i = 0; i < 5; i++)
+    {
+        Local<Function> cb = Local<Function>::Cast(args[0]);
+        const unsigned argc = 1;
+        Local<Value> argv[argc] = {String::NewFromUtf8(isolate, "gpio interrupt")};
+        cb->Call(Null(isolate), argc, argv);
+    }
 }
 }
