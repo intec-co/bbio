@@ -54,19 +54,20 @@ class gpio
     void export_io();
     void unexport_io();
     double value_;
-    void config(unsigned int _gpio, PIN_DIRECTION _direction, PIN_EDGE _edge);
-    void set_dir(PIN_DIRECTION out_flag);
-    void set_edge(PIN_EDGE _edge);
-    void set_value(PIN_VALUE value);
-    void set_value(bool value);
-    void set_timeout_interrupt(unsigned int timeout);
-    int get_value();
-    int get_interrupt();
-    int open_io();
-    void close_io();
 
   public:
     gpio(unsigned int value);
     virtual ~gpio();
+    
+    void config(unsigned int _gpio, PIN_DIRECTION _direction, PIN_EDGE _edge);
+    void set_dir(PIN_DIRECTION out_flag);
+    void set_edge(PIN_EDGE _edge);
+    void set(PIN_VALUE value);
+    void set(bool value);
+    void set_timeout_interrupt(unsigned int timeout);
+    int get();
+    int get_interrupt();
+    int open_io();
+    void close_io();
 };
 #endif /* SIMPLEGPIO_H_ */

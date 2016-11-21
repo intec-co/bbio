@@ -83,15 +83,15 @@ void gpio::set_dir(PIN_DIRECTION out_flag)
     close(fd);
 }
 
-void gpio::set_value(bool value)
+void gpio::set(bool value)
 {
     if (value)
-        set_value(HIGH);
+        set(HIGH);
     else
-        set_value(LOW);
+        set(LOW);
 }
 
-void gpio::set_value(PIN_VALUE value)
+void gpio::set(PIN_VALUE value)
 {
     int w;
     bool toclose = false;
@@ -116,7 +116,7 @@ void gpio::set_value(PIN_VALUE value)
     }
 }
 
-int gpio::get_value()
+int gpio::get()
 {
     char ch;
     int val;

@@ -18,18 +18,11 @@ using v8::Exception;
 
 Persistent<Function> GpioWrap::constructor;
 
-GpioWrap::GpioWrap(double value) : value_(value)
-{
-    /*pin = (unsigned int)value;
-    polltiemout = 3000; // 3 seconds
-    nfds = 2;
-    file = -1;
-    config(pin, OUTPUT_PIN, NONE);*/
+GpioWrap::GpioWrap(double value) : value_(value){
+    port = new gpio((unsigned int)value);
 }
 
-GpioWrap::~GpioWrap()
-{
-}
+GpioWrap::~GpioWrap(){}
 
 void GpioWrap::Init(v8::Isolate *isolate)
 {
@@ -95,10 +88,9 @@ void GpioWrap::configure(const v8::FunctionCallbackInfo<v8::Value> &args)
 void GpioWrap::write(const v8::FunctionCallbackInfo<v8::Value> &args)
 {
     Isolate *isolate = args.GetIsolate();
-
     GpioWrap *obj = ObjectWrap::Unwrap<GpioWrap>(args.Holder());
-
-    args.GetReturnValue().Set(Number::New(isolate, obj->value_));
+    bool value = args[0]->BooleanValue();
+    obj->port->set(value);
 }
 
 void GpioWrap::read(const v8::FunctionCallbackInfo<v8::Value> &args)
